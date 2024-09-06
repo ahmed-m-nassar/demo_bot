@@ -1,0 +1,13 @@
+[
+  {
+    "id": "builtin_text-xF_z_o",
+    "formData": {
+      "text$en": "Hello bot",
+      "markdown$en": false,
+      "typing$en": true
+    },
+    "createdBy": "admin",
+    "createdOn": "2024-09-06T14:24:43.507Z",
+    "modifiedOn": "2024-09-06T14:24:43.507Z"
+  }
+]

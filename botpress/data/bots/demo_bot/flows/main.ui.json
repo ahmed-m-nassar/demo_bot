@@ -1,0 +1,35 @@
+{
+  "nodes": [
+    {
+      "id": "entry",
+      "position": {
+        "x": -20,
+        "y": 70
+      }
+    },
+    {
+      "id": "089912e74e",
+      "position": {
+        "x": 255,
+        "y": 60
+      }
+    }
+  ],
+  "links": [
+    {
+      "source": "entry",
+      "sourcePort": "out0",
+      "target": "089912e74e",
+      "points": [
+        {
+          "x": 180,
+          "y": 113
+        },
+        {
+          "x": 255,
+          "y": 77
+        }
+      ]
+    }
+  ]
+}
