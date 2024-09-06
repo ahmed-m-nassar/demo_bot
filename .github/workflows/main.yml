@@ -16,7 +16,7 @@ jobs:
 
     # Step 2: Log in to Docker Hub
     - name: Log in to Docker Hub
-      run: echo "${{ secrets.DOCKERHUB_PASS }}" | docker login -u "${{ secrets.DOCKERHUB_LOGIN }}" --password-stdin
+      run: echo "${{ secrets.DOCKER_PASS }}" | docker login -u "${{ secrets.DOCKER_EMAIL }}" --password-stdin
 
     # Step 3: Build the Botpress Docker image
     - name: Build Botpress Docker image
@@ -61,7 +61,7 @@ jobs:
         username: ${{ secrets.PROD_SERVER_USER }}
         key: ${{ secrets.PROD_SERVER_SSH_KEY }}
         script: |
-          docker login -u ${{ secrets.DOCKER_LOGIN }} -p ${{ secrets.DOCKER_PASS }}
+          docker login -u ${{ secrets.DOCKER_EMAIL }} -p ${{ secrets.DOCKER_PASS }}
           cd /root/projects/demo_bot
           docker-compose -f docker-compose-prod.yaml pull
           docker-compose -f docker-compose-prod.yaml up -d
