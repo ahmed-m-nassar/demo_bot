@@ -39,11 +39,26 @@
       "next": [
         {
           "condition": "true",
-          "node": ""
+          "node": "node-6361"
         }
       ],
       "onEnter": [
         "say #!builtin_text-evT68w"
+      ],
+      "onReceive": null,
+      "type": "standard"
+    },
+    {
+      "id": "7312e7851d",
+      "name": "node-6361",
+      "next": [
+        {
+          "condition": "true",
+          "node": ""
+        }
+      ],
+      "onEnter": [
+        "say #!builtin_text-3QvIKh"
       ],
       "onReceive": null,
       "type": "standard"
