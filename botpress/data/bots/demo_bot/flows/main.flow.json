@@ -24,11 +24,26 @@
       "next": [
         {
           "condition": "true",
-          "node": ""
+          "node": "node-fe40"
         }
       ],
       "onEnter": [
         "say #!builtin_text-xF_z_o"
+      ],
+      "onReceive": null,
+      "type": "standard"
+    },
+    {
+      "id": "f674dddf2b",
+      "name": "node-fe40",
+      "next": [
+        {
+          "condition": "true",
+          "node": ""
+        }
+      ],
+      "onEnter": [
+        "say #!builtin_text-evT68w"
       ],
       "onReceive": null,
       "type": "standard"

@@ -4,6 +4,7 @@ services:
   botpress:
     image: amnassar/botpress:latest  # Use the Docker Hub image
     container_name: botpress-server
+    user: "botpress"
     ports:
       - 3000:3000
     environment:
@@ -22,6 +23,7 @@ services:
   botpress_lang:
     image: amnassar/botpress_lang:latest  # Use the Docker Hub image
     container_name: botpress-lang
+    user: "botpress"
     command: bash -c "./duckling -p 8000 & ./bp lang --langDir /botpress/lang --port 3100"
     expose:
       - 3100
