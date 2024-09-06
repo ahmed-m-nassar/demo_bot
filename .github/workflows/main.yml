@@ -61,6 +61,11 @@ jobs:
         ssh -o StrictHostKeyChecking=no -i /tmp/private_key.pem ${{ secrets.PROD_SERVER_USER }}@${{ secrets.PROD_SERVER_IP }} << 'EOF'
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASS }}
           cd /root/projects/demo_bot
+          sudo chown -R botpress:botpress botpress/data botpress/language
+          sudo find botpress -type d -exec chmod 777 {} \;
+          sudo find botpress -type f -exec chmod 777 {} \;
+          docker stop $(docker ps -aq)
+          docker rm $(docker ps -aq)
           docker-compose -f docker-compose-prod.yaml pull
           docker-compose -f docker-compose-prod.yaml up -d
         EOF
