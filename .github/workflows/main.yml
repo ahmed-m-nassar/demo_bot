@@ -1,0 +1,69 @@
+name: CI/CD Pipeline for Botpress
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Step 2: Log in to Docker Hub
+    - name: Log in to Docker Hub
+      run: echo "${{ secrets.DOCKER_PASS }}" | docker login -u "${{ secrets.DOCKER_EMAIL }}" --password-stdin
+
+    # Step 3: Build the Botpress Docker image
+    - name: Build Botpress Docker image
+      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/botpress:latest ./botpress
+
+    # Step 4: Build the Botpress Lang Docker image
+    - name: Build Botpress Lang Docker image
+      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/botpress_lang:latest ./botpress
+
+    # Step 5: Push the Botpress Docker image to Docker Hub
+    - name: Push Botpress image to Docker Hub
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/botpress:latest
+
+    # Step 6: Push the Botpress Lang Docker image to Docker Hub
+    - name: Push Botpress Lang image to Docker Hub
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/botpress_lang:latest
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Step 2: Transfer files to the production server
+    - name: Transfer repository files to production server
+      uses: appleboy/scp-action@v0.1.3
+      with:
+        host: ${{ secrets.PROD_SERVER_IP }}
+        username: ${{ secrets.PROD_SERVER_USER }}
+        key: ${{ secrets.PROD_SERVER_SSH_KEY }}
+        source: ./
+        target: /root/projects/demo_bot/
+
+    # Step 3: SSH into the production server and pull Docker images
+    - name: Deploy updated containers via SSH
+      run: |
+        echo "${{ secrets.PROD_SERVER_SSH_KEY }}" > /tmp/private_key.pem
+        chmod 600 /tmp/private_key.pem
+        ssh -o StrictHostKeyChecking=no -i /tmp/private_key.pem ${{ secrets.PROD_SERVER_USER }}@${{ secrets.PROD_SERVER_IP }} << 'EOF'
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASS }}
+          cd /root/projects/demo_bot
+          docker-compose -f docker-compose-prod.yaml pull
+          docker-compose -f docker-compose-prod.yaml up -d
+        EOF
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
