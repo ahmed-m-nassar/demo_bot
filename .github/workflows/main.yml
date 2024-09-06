@@ -16,7 +16,7 @@ jobs:
 
     # Step 2: Log in to Docker Hub
     - name: Log in to Docker Hub
-      run: echo "${{ secrets.PASS }}" | docker login -u "${{ secrets.DOCKER_LOGIN }}" --password-stdin
+      run: echo "${{ secrets.DOCKERHUB_PASS }}" | docker login -u "${{ secrets.DOCKERHUB_LOGIN }}" --password-stdin
 
     # Step 3: Build the Botpress Docker image
     - name: Build Botpress Docker image
