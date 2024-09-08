@@ -54,7 +54,21 @@ services:
       - ./pgdata:/var/lib/postgresql/data
     networks:
       - common_net
-
+      
+  flowise:
+      image: flowiseai/flowise:2.0.5
+      restart: always
+      environment:
+          - PORT=12312
+          - FLOWISE_USERNAME=user
+          - FLOWISE_PASSWORD=1234
+      ports:
+          - 12312:12312
+      networks:
+        - common_net
+      volumes:
+          - ./flowise:/root/.flowise
+      entrypoint: /bin/sh -c "sleep 3; flowise start"
 # Network
 networks:
   common_net:
