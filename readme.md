@@ -11,6 +11,11 @@ sudo find botpress -type d -exec chmod 777 {} \;
 # Apply chmod 777 to all files
 sudo find botpress -type f -exec chmod 777 {} \;
 
+# Apply chmod 777 to all directories
+sudo find n8n_data -type d -exec chmod 777 {} \;
+
+# Apply chmod 777 to all files
+sudo find n8n_data -type f -exec chmod 777 {} \;
 
 docker stop $(docker ps -aq)
 docker rm $(docker ps -aq)

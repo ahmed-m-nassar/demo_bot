@@ -69,6 +69,44 @@ services:
       volumes:
           - ./flowise:/root/.flowise
       entrypoint: /bin/sh -c "sleep 3; flowise start"
+
+  # n8n Services
+  n8n:
+    image: n8nio/n8n:1.55.3
+    ports:
+      - 5678:5678
+    environment:
+      - N8N_QUEUE_TYPE=redis
+      - N8N_QUEUE_HOST=redis
+      - N8N_QUEUE_PORT=6379
+      - N8N_QUEUE_NAME=n8n
+    depends_on:
+      - mysql
+      - redis
+    volumes:
+      - ./n8n_data:/home/node/.n8n
+    networks:
+      - common_net
+
+  mysql:
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=n8n
+      - MYSQL_USER=n8n
+      - MYSQL_PASSWORD=password
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    networks:
+      - common_net
+
+  redis:
+    image: redis:latest
+    volumes:
+      - ./redis_data:/data
+    networks:
+      - common_net
+
 # Network
 networks:
   common_net:

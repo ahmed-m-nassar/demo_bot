@@ -1,3 +1,5 @@
 # Ignore all files in botpress/language directory
 botpress/language/*
 pgdata/
+redis_data/
+mysql_data/
