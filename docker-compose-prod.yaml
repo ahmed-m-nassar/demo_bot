@@ -74,6 +74,7 @@ services:
       - N8N_QUEUE_HOST=redis
       - N8N_QUEUE_PORT=6379
       - N8N_QUEUE_NAME=n8n
+      - N8N_SECURE_COOKIE = false
     depends_on:
       - mysql
       - redis
