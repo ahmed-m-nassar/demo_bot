@@ -54,11 +54,26 @@
       "next": [
         {
           "condition": "true",
-          "node": ""
+          "node": "node-9cfb"
         }
       ],
       "onEnter": [
         "say #!builtin_text-3QvIKh"
+      ],
+      "onReceive": null,
+      "type": "standard"
+    },
+    {
+      "id": "bee2a3b30a",
+      "name": "node-9cfb",
+      "next": [
+        {
+          "condition": "true",
+          "node": ""
+        }
+      ],
+      "onEnter": [
+        "say #!builtin_text-knayzG"
       ],
       "onReceive": null,
       "type": "standard"
