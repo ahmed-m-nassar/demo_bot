@@ -69,11 +69,26 @@
       "next": [
         {
           "condition": "true",
-          "node": ""
+          "node": "node-b015"
         }
       ],
       "onEnter": [
         "say #!builtin_text-knayzG"
+      ],
+      "onReceive": null,
+      "type": "standard"
+    },
+    {
+      "id": "1edfeb9559",
+      "name": "node-b015",
+      "next": [
+        {
+          "condition": "true",
+          "node": ""
+        }
+      ],
+      "onEnter": [
+        "say #!builtin_text-zQt-Ce"
       ],
       "onReceive": null,
       "type": "standard"
