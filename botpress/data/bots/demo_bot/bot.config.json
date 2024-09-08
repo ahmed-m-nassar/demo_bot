@@ -45,5 +45,13 @@
       "promoted_on": "2024-09-06T14:24:21.329Z",
       "promoted_by": "admin"
     }
+  },
+  "messaging": {
+    "channels": {
+      "telegram": {
+        "enabled": true,
+        "botToken": "PLACEHOLDER_FOR_TELEGRAM_BOT"
+      }
+    }
   }
 }
