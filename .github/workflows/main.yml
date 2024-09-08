@@ -64,6 +64,8 @@ jobs:
           sudo chown -R botpress:botpress botpress/data botpress/language
           sudo find botpress -type d -exec chmod 777 {} \;
           sudo find botpress -type f -exec chmod 777 {} \;
+          sudo find n8n_data -type d -exec chmod 777 {} \;
+          sudo find n8n_data -type f -exec chmod 777 {} \;
           CONFIG_FILE="/root/projects/demo_bot/botpress/data/bots/demo_bot/bot.config.json"
           sed -i 's/PLACEHOLDER_FOR_TELEGRAM_BOT/'"${{ secrets.TELEGRAM_BOT_TOKEN }}"'/g' "$CONFIG_FILE"
           echo "Telegram bot token has been added to bot.config.json"
