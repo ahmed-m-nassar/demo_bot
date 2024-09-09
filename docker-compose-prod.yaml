@@ -101,7 +101,18 @@ services:
       - ./redis_data:/data
     networks:
       - common_net
-
+      
+  nginx:
+    image: nginx:1.21
+    ports:
+      - 80:80
+    command: nginx -g 'daemon off;';
+    depends_on:
+      - botpress
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+    networks:
+      - common_net
 networks:
   common_net:
     driver: bridge
