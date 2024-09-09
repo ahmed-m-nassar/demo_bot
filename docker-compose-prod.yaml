@@ -106,7 +106,7 @@ services:
     image: nginx:1.21
     ports:
       - 80:80
-    command: nginx -g 'daemon off;';
+    command: nginx -g 'daemon off';
     depends_on:
       - botpress
     volumes:
