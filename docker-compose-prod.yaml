@@ -11,7 +11,7 @@ services:
       - DATABASE_URL=postgres://postgres:secretpw@postgres:5435/botpress_db
       - BP_MODULE_NLU_DUCKLINGURL=http://botpress_lang:8000
       - BP_MODULE_NLU_LANGUAGESOURCES=[{"endpoint":"http://botpress_lang:3100"}]
-      - EXTERNAL_URL=http://demobot.hopto.org:3000
+      - EXTERNAL_URL=https://demobot.hopto.org
     depends_on:
       - botpress_lang
       - postgres
@@ -103,14 +103,16 @@ services:
       - common_net
 
   nginx:
-    image: nginx:1.21
+    image: jonasal/nginx-certbot:latest
+    restart: unless-stopped
+    environment:
+      - CERTBOT_EMAIL=ahmed.nassar.cmp@gmail.com
     ports:
       - 80:80
-    command: nginx -g 'daemon off';
-    depends_on:
-      - botpress
+      - 443:443
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+      - nginx_secrets:/etc/letsencrypt
+      - ./nginx/user_conf.d:/etc/nginx/user_conf.d
     networks:
       - common_net
 networks:
