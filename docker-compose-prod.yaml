@@ -115,6 +115,9 @@ services:
       - ./nginx/user_conf.d:/etc/nginx/user_conf.d
     networks:
       - common_net
+
+volumes:
+  nginx_secrets:
 networks:
   common_net:
     driver: bridge
