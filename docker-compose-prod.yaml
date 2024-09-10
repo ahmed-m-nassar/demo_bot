@@ -75,6 +75,7 @@ services:
       - N8N_QUEUE_PORT=6379
       - N8N_QUEUE_NAME=n8n
       - N8N_SECURE_COOKIE=false
+      - N8N_EDITOR_BASE_URL=https://demobot.hopto.org/n8n
     depends_on:
       - mysql
       - redis
