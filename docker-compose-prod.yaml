@@ -55,8 +55,9 @@ services:
           - PORT=12312
           - FLOWISE_USERNAME=user
           - FLOWISE_PASSWORD=1234
+          - DEBUG=true
       ports:
-          - 12312:12312
+          - 12312
       networks:
         - common_net
       volumes:
@@ -68,20 +69,20 @@ services:
     image: n8nio/n8n:1.55.3
     user: "1000:1000"
     ports:
-      - 5678:5678
+      - 5678
     environment:
       - N8N_QUEUE_TYPE=redis
       - N8N_QUEUE_HOST=redis
       - N8N_QUEUE_PORT=6379
       - N8N_QUEUE_NAME=n8n
-      - N8N_SECURE_COOKIE=false
-      - N8N_HOST=demobot.hopto.org  # Your domain name
-      - N8N_PORT=5678  # Internal port for n8n
-      - N8N_EDITOR_BASE_URL=https://demobot.hopto.org/n8n/  # The public URL for the n8n editor
-      - N8N_PATH=/n8n  # Path that n8n should be served from
-      - N8N_PROTOCOL=https  # If using SSL, set the protocol to https
-      - N8N_LISTEN_ADDRESS=0.0.0.0  # Listen on all IP addresses
-      - N8N_TEMPLATES_ENABLED=true  # Enable workflow templates if you want
+      - N8N_HOST=n8n.genomind.net
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+      - NODE_ENV=production
+      - WEBHOOK_URL=https://n8n.genomind.net/
+      - DOMAIN_NAME=genomind.net
+      - SUBDOMAIN=n8n
+
     depends_on:
       - mysql
       - redis
@@ -118,9 +119,7 @@ services:
       - 80:80
       - 443:443
     depends_on:
-      - n8n
       - botpress
-      - flowise
     volumes:
       - nginx_secrets:/etc/letsencrypt
       - ./nginx/user_conf.d:/etc/nginx/user_conf.d
@@ -129,6 +128,7 @@ services:
 
 volumes:
   nginx_secrets:
+  
 networks:
   common_net:
     driver: bridge
